@@ -26,16 +26,15 @@ limitations under the License.
 			font-weight: bold;
 			font-size: 40px;
 		}
-
-        #message {
-            background-color: black;
-        }
+		
+		#message {
+			background-color: black;
+		}
 	</style>
 	<title>Cast Hello Text</title>
 </head>
 
 <body>
-    <h1>This is a test</h1>
 	<DIV id="message">Talk to me</DIV>
 	<script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
 	<script type="text/javascript">
@@ -93,7 +92,12 @@ limitations under the License.
       // utility function to display the text message in the input field
       function displayText(text) {
         console.log(text);
-        document.getElementById("message").innerHTML=text;
+        let parsedText = /^img:(.*)/.exec(text);
+        if (parsedText) {
+            document.getElementById("message").innerHTML= '<img src="' + parsedText[1] + '">';
+        } else {
+            document.getElementById("message").innerHTML=text;
+        }
         window.castReceiverManager.setApplicationState(text);
       };
     </script>
